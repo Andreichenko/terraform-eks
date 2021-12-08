@@ -23,20 +23,9 @@ resource "aws_iam_role_policy_attachment" "eks-cluster-AmazonEKSClusterPolicy" {
   role       = "${aws_iam_role.iam-role-eks-cluster.name}"
 }
 
-resource "aws_vpc" "vpc-east-1" {
-  provider             = aws.region-common
-  cidr_block           = "10.0.0.0/16"
-  enable_dns_hostnames = true
-  enable_dns_support   = true
-  tags = {
-    Name        = "common-vpc-eks"
-    Owner       = "Aleksandr Andreichenko"
-    Environment = "Production Environment"
-    Region      = "eu-central-1"
-  }
-}
+# Creating the EKS cluster
 
-resource "aws_security_group" "eks-cluster" {
-  name        = "SG-eks-cluster"
-  vpc_id      = aws_vpc.vpc-east-1.id
-  } 
+resource "aws_eks_cluster" "eks_cluster" {
+  name     = "terraformEKScluster"
+  role_arn =  "${aws_iam_role.iam-role-eks-cluster.arn}"
+  version  = "1.23"
