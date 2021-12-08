@@ -3,7 +3,14 @@ locals {
 }
 
 module "vpc" {
+   source = "git::https://github.com/Andreichenko/terraform-gcp-vpc.git//vpc?ref=gke-node-pool-v2.0.2"
+   aws_region = "us-east-1"
+   az_count   = 3
+   aws_azs    = "us-east-1a, us-east-1b, us-east-1c"
 
+  global_tags = {
+    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+  }
 }
 
 module "eks" {
