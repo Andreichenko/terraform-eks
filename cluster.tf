@@ -3,7 +3,7 @@ locals {
 }
 
 module "vpc" {
-   source = "git::https://github.com/Andreichenko/terraform-gcp-vpc.git?ref=v0.1.0"
+   source = "git::https://github.com/Andreichenko/module-tf-aws-vpc.git?ref=v0.1.0"
    aws_region = "us-east-1"
    az_count   = 3
    aws_azs    = "us-east-1a, us-east-1b, us-east-1c"
