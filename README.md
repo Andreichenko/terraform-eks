@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # terraform-eks## Requirements
 
 | Name | Version |
@@ -25,6 +24,3 @@ No provider.
 | cluster\_arn | The Amazon Resource Name (ARN) of the cluster. |
 | cluster\_id | The name/id of the EKS cluster. Will block on cluster creation until the cluster is really ready. |
 
-=======
-## terraform-eks
->>>>>>> e53f4ad7d3593d2d459c55b69116bf4a6bd3718d
