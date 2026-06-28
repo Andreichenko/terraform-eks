@@ -33,6 +33,5 @@ module "eks" {
     }
   }
 
-  manage_aws_auth                = false
   cluster_endpoint_public_access = true
 }
