@@ -3,8 +3,8 @@ locals {
 }
 
 module "vpc" {
-  source     = "git::https://github.com/Andreichenko/module-tf-aws-vpc.git?ref=v0.1.0"
-  aws_region = "us-east-1"
+  source     = "git::https://github.com/Andreichenko/module-tf-aws-vpc.git?ref=v1.0.0"
+  aws_region = var.region_common
   az_count   = 3
   aws_azs    = "us-east-1a, us-east-1b, us-east-1c"
 
@@ -14,20 +14,25 @@ module "vpc" {
 }
 
 module "eks" {
-  source       = "git::https://github.com/terraform-aws-modules/terraform-aws-eks.git?ref=v17.24.0"
-  cluster_name = local.cluster_name
-  vpc_id       = module.vpc.aws_vpc_id
-  subnets      = module.vpc.aws_subnet_private_prod_ids
+  source  = "terraform-aws-modules/eks/aws"
+  version = "19.21.0"
 
-  node_groups = {
+  cluster_name    = local.cluster_name
+  cluster_version = "1.28"
+
+  vpc_id     = module.vpc.aws_vpc_id
+  subnet_ids = module.vpc.aws_subnet_private_prod_ids
+
+  eks_managed_node_groups = {
     eks_nodes = {
-      desired_capacity = 3
-      max_capacity     = 3
-      min_capaicty     = 3
+      min_size     = 3
+      max_size     = 3
+      desired_size = 3
 
-      instance_type = "t2.micro"
+      instance_types = ["t2.micro"]
     }
   }
 
-  manage_aws_auth = false
+  manage_aws_auth                = false
+  cluster_endpoint_public_access = true
 }

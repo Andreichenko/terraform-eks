@@ -4,9 +4,9 @@ variable "profile" {
   description = "The common profile for aws cli"
 }
 
-variable "region-common" {
+variable "region_common" {
   type        = string
-  default     = "eu-east-1"
+  default     = "us-east-1"
   description = "The common region"
 }
 
